@@ -44,7 +44,5 @@ class Cliente:
         print(f"Total a pagar: Q{total}\n")
         return total
 
-    def Visualizar_Comprobante(self): #Muestra la dirección de envío del pedido
-        print(f"Este es el comprobante\n")
-    
-    
+    def consultar_envio(self, direccion): #Muestra la dirección de envío del pedido
+        print(f"El pedido será enviado a: {direccion}\n")
