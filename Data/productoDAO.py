@@ -1,10 +1,39 @@
+"""
+PRODUCTO DAO - Creative Designs
+Data Access Object para la gestión de productos en la base de datos
+"""
+
 import sys
-sys.path.append('..')
-from Data.conexion import Conexion
-from Productos import Producto
+import os
+import logging
+from typing import List, Optional, Tuple
+
+# Agregar directorio raíz al path
+current_dir = os.path.dirname(os.path.abspath(_file_))
+parent_dir = os.path.dirname(current_dir)
+sys.path.insert(0, parent_dir)
+
+try:
+    from Data.conexion import Conexion
+except ImportError:
+    try:
+        from conexion import Conexion
+    except ImportError as e:
+        print(f"Error: No se pudo importar Conexion: {e}")
+        sys.exit(1)
+
+try:
+    from Productos import Producto
+except ImportError as e:
+    print(f"Error: No se pudo importar Producto: {e}")
+    sys.exit(1)
+
+# Configurar logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(_name_)
 
 class ProductoDAO:
-    def __init__(self):
+    def _init_(self):
         self.conexion = Conexion()
     
     def listar(self):

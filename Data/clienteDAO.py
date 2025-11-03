@@ -1,25 +1,27 @@
-"""
-CLIENTE DAO - Creative Designs
-Data Access Object para la gestión de clientes en la base de datos
-
-Autor: Creative Designs Team
-Fecha: 2025
-Descripción: Capa de acceso a datos con manejo robusto de errores y transacciones
-"""
-
 import sys
+import os
 import logging
 from typing import List, Optional, Tuple, Dict
 
-# Configurar carpeta padre para imports
-sys.path.append('..')
+# Agregar directorio raíz al path
+current_dir = os.path.dirname(os.path.abspath(_file_))
+parent_dir = os.path.dirname(current_dir)
+sys.path.insert(0, parent_dir)
 
 try:
     from Data.conexion import Conexion
+except ImportError:
+    try:
+        from conexion import Conexion
+    except ImportError as e:
+        print(f"Error: No se pudo importar Conexion: {e}")
+        sys.exit(1)
+
+try:
     from Cliente import Cliente
 except ImportError as e:
-    print(f"Error al importar módulos: {e}")
-    print("Asegúrese de que los archivos conexion.py y Cliente.py existan")
+    print(f"Error: No se pudo importar Cliente: {e}")
+    print("Asegúrese de que Cliente.py esté en el directorio raíz")
     sys.exit(1)
 
 # Configurar logging
@@ -27,7 +29,7 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(_name_)
 
 
 class ClienteDAOException(Exception):
@@ -55,7 +57,7 @@ class ClienteDAO:
         - listar_paginado(): Lista con paginación
     """
     
-    def __init__(self):
+    def _init_(self):
         """Inicializa el DAO con la conexión a la base de datos"""
         try:
             self.conexion = Conexion()
